@@ -1,0 +1,44 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MasterPage.master.cs" Inherits="PSDLab_Project.Views.MasterPage" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title></title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+      <div style="background-color: #f2f2f2; padding: 10px;">
+            <asp:Label ID="lblWelcome" runat="server" Font-Bold="true" />
+
+            <asp:PlaceHolder ID="phGuest" runat="server">
+                | <asp:HyperLink NavigateUrl="Login.aspx" Text="Login" runat="server" />
+                | <asp:HyperLink NavigateUrl="Register.aspx" Text="Register" runat="server" />
+            </asp:PlaceHolder>
+
+            <asp:PlaceHolder ID="phCustomer" runat="server">
+                | <asp:HyperLink NavigateUrl="Home.aspx" Text="Home" runat="server" />
+                | <asp:HyperLink NavigateUrl="Cart.aspx" Text="Cart" runat="server" />
+                | <asp:HyperLink NavigateUrl="MyOrders.aspx" Text="My Orders" runat="server" />
+                | <asp:HyperLink NavigateUrl="Profile.aspx" Text="Profile" runat="server" />
+                | <asp:LinkButton ID="btnLogoutCustomer" runat="server" Text="Logout" OnClick="btnLogout_Click" />
+            </asp:PlaceHolder>
+
+            <asp:PlaceHolder ID="phAdmin" runat="server">
+                | <asp:HyperLink NavigateUrl="Home.aspx" Text="Home" runat="server" />
+                | <asp:HyperLink NavigateUrl="AddJewel.aspx" Text="Add Jewel" runat="server" />
+                | <asp:HyperLink NavigateUrl="HandleOrders.aspx" Text="Handle Orders" runat="server" />
+                | <asp:HyperLink NavigateUrl="Reports.aspx" Text="Reports" runat="server" />
+                | <asp:HyperLink NavigateUrl="Profile.aspx" Text="Profile" runat="server" />
+                | <asp:LinkButton ID="btnLogoutAdmin" runat="server" Text="Logout" OnClick="btnLogout_Click" />
+            </asp:PlaceHolder>
+        </div>
+
+        <div style="margin: 20px;">
+            <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+        </div>
+    </form>
+</body>
+</html>
