@@ -89,10 +89,17 @@
       <DependentUpon>JawelsModel.edmx</DependentUpon>
       <LastGenOutput>JawelsModel.cs</LastGenOutput>
     </Content>
+    <Content Include="Views\AddJewel.aspx" />
+    <Content Include="Views\Cart.aspx" />
+    <Content Include="Views\HomePage.aspx" />
+    <Content Include="Views\JewelDetail.aspx" />
     <Content Include="Views\LoginPage.aspx" />
+    <Content Include="Views\RegisterPage.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Factories\UserFactory.cs" />
+    <Compile Include="Handlers\UserHandler.cs" />
     <Compile Include="Models\Brand.cs">
       <DependentUpon>JawelsModel.tt</DependentUpon>
     </Compile>
@@ -130,6 +137,35 @@
       <DependentUpon>JawelsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\UserRepository.cs" />
+    <Compile Include="Views\AddJewel.aspx.cs">
+      <DependentUpon>AddJewel.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\AddJewel.aspx.designer.cs">
+      <DependentUpon>AddJewel.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Cart.aspx.cs">
+      <DependentUpon>Cart.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Cart.aspx.designer.cs">
+      <DependentUpon>Cart.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HomePage.aspx.cs">
+      <DependentUpon>HomePage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\HomePage.aspx.designer.cs">
+      <DependentUpon>HomePage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\JewelDetail.aspx.cs">
+      <DependentUpon>JewelDetail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\JewelDetail.aspx.designer.cs">
+      <DependentUpon>JewelDetail.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Views\LoginPage.aspx.cs">
       <DependentUpon>LoginPage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -143,6 +179,13 @@
     </Compile>
     <Compile Include="Views\MasterPage.Master.designer.cs">
       <DependentUpon>MasterPage.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RegisterPage.aspx.cs">
+      <DependentUpon>RegisterPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\RegisterPage.aspx.designer.cs">
+      <DependentUpon>RegisterPage.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -165,9 +208,6 @@
   <ItemGroup>
     <Folder Include="Assets\" />
     <Folder Include="Controllers\" />
-    <Folder Include="Factories\" />
-    <Folder Include="Handlers\" />
-    <Folder Include="Repositories\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

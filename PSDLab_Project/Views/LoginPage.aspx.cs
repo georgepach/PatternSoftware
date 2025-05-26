@@ -1,4 +1,5 @@
 ﻿using PSDLab_Project.Models;
+using PSDLab_Project.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,58 +11,31 @@ namespace PSDLab_Project.Views
 {
     public partial class LoginPage : System.Web.UI.Page
     {
-        protected void Page_Load(object sender, EventArgs e)
-        {
-            // Optional: auto-login if cookie exists
-            if (!IsPostBack && Request.Cookies["userLogin"] != null)
-            {
-                string email = Request.Cookies["userLogin"]["email"];
-                using (JawelsDBEntities1 db = new JawelsDBEntities1())
-                {
-                    var user = db.Users.FirstOrDefault(u => u.Email == email);
-                    if (user != null)
-                    {
-                        Session["user"] = user;
-                        RedirectToHome(user.Role);
-                    }
-                }
-            }
-        }
-
         protected void btnLogin_Click(object sender, EventArgs e)
         {
             string email = txtEmail.Text.Trim();
             string password = txtPassword.Text;
 
-            using (JawelsDBEntities1 db = new JawelsDBEntities1())
+            var user = UserRepository.GetUserByEmailAndPassword(email, password);
+
+            if (user != null)
             {
-                var user = db.Users.FirstOrDefault(u => u.Email == email && u.Password == password);
+                Session["user"] = user;
 
-                if (user != null)
+                if (chkRemember.Checked)
                 {
-                    Session["user"] = user;
-
-                    if (chkRemember.Checked)
-                    {
-                        HttpCookie cookie = new HttpCookie("userLogin");
-                        cookie.Values["email"] = email;
-                        cookie.Expires = DateTime.Now.AddDays(7);
-                        Response.Cookies.Add(cookie);
-                    }
-
-                    RedirectToHome(user.Role);
+                    var cookie = new HttpCookie("userLogin");
+                    cookie.Values["email"] = email;
+                    cookie.Expires = DateTime.Now.AddDays(7);
+                    Response.Cookies.Add(cookie);
                 }
-                else
-                {
-                    lblError.Text = "Invalid email or password.";
-                }
+
+                Response.Redirect("~/Views/HomePage.aspx");
             }
-        }
-
-        private void RedirectToHome(string role)
-        {
-           
-            Response.Redirect("Home.aspx");
+            else
+            {
+                lblError.Text = "Invalid email or password.";
+            }
         }
     }
 }

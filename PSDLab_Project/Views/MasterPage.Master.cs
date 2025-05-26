@@ -34,7 +34,7 @@ namespace PSDLab_Project.Views
             {
                 Response.Cookies["userLogin"].Expires = DateTime.Now.AddDays(-1);
             }
-            Response.Redirect("Login.aspx");
+            Response.Redirect("LoginPage.aspx");
         }
     }
 }
