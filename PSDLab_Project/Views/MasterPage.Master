@@ -1,44 +1,65 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MasterPage.master.cs" Inherits="PSDLab_Project.Views.MasterPage" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MasterPage.Master.cs" Inherits="PSDLab_Project.Views.MasterPage" %>
 
 <!DOCTYPE html>
 
 <html>
 <head runat="server">
-    <title></title>
+    <title>JAwels & Diamonds</title>
+    <%-- Add links to CSS stylesheets here --%>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
 <body>
     <form id="form1" runat="server">
-      <div style="background-color: #f2f2f2; padding: 10px;">
-            <asp:Label ID="lblWelcome" runat="server" Font-Bold="true" />
+        <header>
+            <h1>JAwels & Diamonds</h1>
+            <nav>
+                <ul>
+                    <%-- Guest Links --%>
+                    <asp:PlaceHolder ID="phGuest" runat="server">
+                        <li><asp:HyperLink ID="hlHomeGuest" runat="server" NavigateUrl="~/Views/HomePage.aspx">Home</asp:HyperLink></li>
+                        <li><asp:HyperLink ID="hlLogin" runat="server" NavigateUrl="~/Views/LoginPage.aspx">Login</asp:HyperLink></li>
+                        <li><asp:HyperLink ID="hlRegister" runat="server" NavigateUrl="~/Views/RegisterPage.aspx">Register</asp:HyperLink></li>
+                    </asp:PlaceHolder>
 
-            <asp:PlaceHolder ID="phGuest" runat="server">
-                | <asp:HyperLink NavigateUrl="LoginPage.aspx" Text="Login" runat="server" />
-                | <asp:HyperLink NavigateUrl="RegisterPage.aspx" Text="Register" runat="server" />
-            </asp:PlaceHolder>
+                    <%-- Customer Links --%>
+                    <asp:PlaceHolder ID="phCustomer" runat="server" Visible="false">
+                        <li><asp:HyperLink ID="hlHomeCustomer" runat="server" NavigateUrl="~/Views/HomePage.aspx">Home</asp:HyperLink></li>
+                        <li><asp:HyperLink ID="hlCart" runat="server" NavigateUrl="~/Views/Cart.aspx">Cart</asp:HyperLink></li>
+                        <li><asp:HyperLink ID="hlMyOrders" runat="server" NavigateUrl="~/Views/MyOrders.aspx">My Orders</asp:HyperLink></li>
+                    </asp:PlaceHolder>
 
-            <asp:PlaceHolder ID="phCustomer" runat="server">
-                | <asp:HyperLink NavigateUrl="HomePage.aspx" Text="Home" runat="server" />
-                | <asp:HyperLink NavigateUrl="Cart.aspx" Text="Cart" runat="server" />
-                | <asp:HyperLink NavigateUrl="MyOrders.aspx" Text="My Orders" runat="server" />
-                | <asp:HyperLink NavigateUrl="Profile.aspx" Text="Profile" runat="server" />
-                | <asp:LinkButton ID="btnLogoutCustomer" runat="server" Text="Logout" OnClick="btnLogout_Click" />
-            </asp:PlaceHolder>
+                    <%-- Admin Links --%>
+                    <asp:PlaceHolder ID="phAdmin" runat="server" Visible="false">
+                         <li><asp:HyperLink ID="hlHomeAdmin" runat="server" NavigateUrl="~/Views/HomePage.aspx">Home</asp:HyperLink></li>
+                         <li><asp:HyperLink ID="hlAddJewel" runat="server" NavigateUrl="~/Views/AddJewel.aspx">Add Jewel</asp:HyperLink></li>
+                         <li><asp:HyperLink ID="hlReports" runat="server" NavigateUrl="~/Views/Reports.aspx">Reports</asp:HyperLink></li>
+                         <li><asp:HyperLink ID="hlHandleOrders" runat="server" NavigateUrl="~/Views/HandleOrders.aspx">Handle Orders</asp:HyperLink></li>
+                    </asp:PlaceHolder>
 
-            <asp:PlaceHolder ID="phAdmin" runat="server">
-                | <asp:HyperLink NavigateUrl="HomePage.aspx" Text="Home" runat="server" />
-                | <asp:HyperLink NavigateUrl="AddJewel.aspx" Text="Add Jewel" runat="server" />
-                | <asp:HyperLink NavigateUrl="HandleOrders.aspx" Text="Handle Orders" runat="server" />
-                | <asp:HyperLink NavigateUrl="Reports.aspx" Text="Reports" runat="server" />
-                | <asp:HyperLink NavigateUrl="Profile.aspx" Text="Profile" runat="server" />
-                | <asp:LinkButton ID="btnLogoutAdmin" runat="server" Text="Logout" OnClick="btnLogout_Click" />
-            </asp:PlaceHolder>
-        </div>
+                    <%-- Logged In User Links (Profile/Logout) --%>
+                     <asp:PlaceHolder ID="phLoggedIn" runat="server" Visible="false">
+                         <li><asp:HyperLink ID="hlProfile" runat="server" NavigateUrl="~/Views/ProfilePage.aspx">Profile</asp:HyperLink></li>
+                         <li><asp:LinkButton ID="lbLogout" runat="server" OnClick="lbLogout_Click">Logout</asp:LinkButton></li>
+                     </asp:PlaceHolder>
+                </ul>
+                <div style="float: right; padding-right: 20px;">
+                     <asp:Label ID="lblWelcome" runat="server" Visible="false"></asp:Label>
+                </div>
+            </nav>
+            <hr />
+        </header>
 
-        <div style="margin: 20px;">
-            <asp:ContentPlaceHolder ID="MainContent" runat="server" />
-        </div>
+        <main>
+            <%-- This is where your individual page content will go --%>
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+            </asp:ContentPlaceHolder>
+        </main>
+
+        <footer>
+            <hr />
+            <p>&copy; <%= DateTime.Now.Year %> - JAwels & Diamonds</p>
+        </footer>
     </form>
 </body>
 </html>

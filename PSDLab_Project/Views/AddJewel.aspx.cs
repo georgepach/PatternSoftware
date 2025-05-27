@@ -1,8 +1,6 @@
 ﻿using PSDLab_Project.Models;
+using PSDLab_Project.Handlers;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -12,60 +10,96 @@ namespace PSDLab_Project.Views
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            // Ensure user is an Admin
+            User user = Session["user"] as User;
+            if (user == null || user.Role != "Admin")
+            {
+                Response.Redirect("~/Views/HomePage.aspx"); // Or LoginPage
+                return;
+            }
+
             if (!IsPostBack)
             {
-                using (var db = new JawelsDBEntities1())
-                {
-                    ddlBrand.DataSource = db.Brands.ToList();
-                    ddlBrand.DataTextField = "BrandName";
-                    ddlBrand.DataValueField = "BrandID";
-                    ddlBrand.DataBind();
-
-                    ddlCategory.DataSource = db.Categories.ToList();
-                    ddlCategory.DataTextField = "CategoryName";
-                    ddlCategory.DataValueField = "CategoryID";
-                    ddlCategory.DataBind();
-                }
+                LoadDropdowns();
             }
         }
 
-        protected void btnAdd_Click(object sender, EventArgs e)
+        private void LoadDropdowns()
         {
-            if (string.IsNullOrWhiteSpace(txtName.Text) ||
-                string.IsNullOrWhiteSpace(txtPrice.Text) ||
-                string.IsNullOrWhiteSpace(txtYear.Text))
-            {
-                lblError.Text = "All fields are required.";
-                return;
-            }
+            // Load Categories
+            ddlCategory.DataSource = JewelHandler.GetAllCategories();
+            ddlCategory.DataBind();
+            ddlCategory.Items.Insert(0, new ListItem("-- Select Category --", ""));
 
+            // Load Brands
+            ddlBrand.DataSource = JewelHandler.GetAllBrands();
+            ddlBrand.DataBind();
+            ddlBrand.Items.Insert(0, new ListItem("-- Select Brand --", ""));
+        }
+
+        protected void btnCancel_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Views/HomePage.aspx");
+        }
+
+        protected void btnAddJewel_Click(object sender, EventArgs e)
+        {
+            string name = txtJewelName.Text.Trim();
+            string categoryIdStr = ddlCategory.SelectedValue;
+            string brandIdStr = ddlBrand.SelectedValue;
+            string priceStr = txtPrice.Text.Trim();
+            string yearStr = txtReleaseYear.Text.Trim();
+
+            int categoryId, brandId, releaseYear;
             decimal price;
-            int year;
-            if (!decimal.TryParse(txtPrice.Text, out price) || price <= 25)
+
+            // --- Basic Client-Side Validation (More robust in Handler) ---
+            if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(categoryIdStr) ||
+                string.IsNullOrEmpty(brandIdStr) || string.IsNullOrEmpty(priceStr) ||
+                string.IsNullOrEmpty(yearStr))
             {
-                lblError.Text = "Price must be a number above 25.";
-                return;
-            }
-            if (!int.TryParse(txtYear.Text, out year) || year >= DateTime.Now.Year)
-            {
-                lblError.Text = "Year must be less than current year.";
+                lblError.Text = "All fields must be filled.";
                 return;
             }
 
-            using (var db = new JawelsDBEntities1())
+            if (!int.TryParse(categoryIdStr, out categoryId))
             {
-                Jewel j = new Jewel
-                {
-                    JewelName = txtName.Text,
-                    BrandID = int.Parse(ddlBrand.SelectedValue),
-                    CategoryID = int.Parse(ddlCategory.SelectedValue),
-                    Price = price,
-                    ReleaseYear = year
-                };
+                lblError.Text = "Please select a valid category.";
+                return;
+            }
 
-                db.Jewels.Add(j);
-                db.SaveChanges();
-                Response.Redirect("HomePage.aspx");
+            if (!int.TryParse(brandIdStr, out brandId))
+            {
+                lblError.Text = "Please select a valid brand.";
+                return;
+            }
+
+            if (!decimal.TryParse(priceStr, out price))
+            {
+                lblError.Text = "Price must be a valid number.";
+                return;
+            }
+
+            if (!int.TryParse(yearStr, out releaseYear))
+            {
+                lblError.Text = "Release year must be a valid number.";
+                return;
+            }
+            // --- End Basic Validation ---
+
+
+            // Call Handler to perform business logic validation and add
+            string result = JewelHandler.AddJewel(name, categoryId, brandId, price, releaseYear);
+
+            if (result == null)
+            {
+                // Success
+                Response.Redirect("~/Views/HomePage.aspx?status=add_success");
+            }
+            else
+            {
+                // Show error from handler
+                lblError.Text = result;
             }
         }
     }

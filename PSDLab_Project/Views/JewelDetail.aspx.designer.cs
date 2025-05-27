@@ -24,6 +24,15 @@ namespace PSDLab_Project.Views
         protected global::System.Web.UI.WebControls.Label lblError;
 
         /// <summary>
+        /// pnlDetails control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlDetails;
+
+        /// <summary>
         /// lblName control.
         /// </summary>
         /// <remarks>
@@ -31,6 +40,15 @@ namespace PSDLab_Project.Views
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblName;
+
+        /// <summary>
+        /// lblCategory control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCategory;
 
         /// <summary>
         /// lblBrand control.
@@ -42,6 +60,15 @@ namespace PSDLab_Project.Views
         protected global::System.Web.UI.WebControls.Label lblBrand;
 
         /// <summary>
+        /// lblCountry control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCountry;
+
+        /// <summary>
         /// lblClass control.
         /// </summary>
         /// <remarks>
@@ -49,15 +76,6 @@ namespace PSDLab_Project.Views
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblClass;
-
-        /// <summary>
-        /// lblCategory control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCategory;
 
         /// <summary>
         /// lblPrice control.
@@ -78,6 +96,15 @@ namespace PSDLab_Project.Views
         protected global::System.Web.UI.WebControls.Label lblYear;
 
         /// <summary>
+        /// phCustomerActions control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder phCustomerActions;
+
+        /// <summary>
         /// btnAddToCart control.
         /// </summary>
         /// <remarks>
@@ -87,6 +114,15 @@ namespace PSDLab_Project.Views
         protected global::System.Web.UI.WebControls.Button btnAddToCart;
 
         /// <summary>
+        /// phAdminActions control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder phAdminActions;
+
+        /// <summary>
         /// btnEdit control.
         /// </summary>
         /// <remarks>
@@ -94,5 +130,14 @@ namespace PSDLab_Project.Views
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnEdit;
+
+        /// <summary>
+        /// btnDelete control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnDelete;
     }
 }

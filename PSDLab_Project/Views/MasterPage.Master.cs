@@ -1,4 +1,5 @@
 ﻿using PSDLab_Project.Models;
+using PSDLab_Project.Handlers; // Make sure you need this, or remove it.
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,29 +13,60 @@ namespace PSDLab_Project.Views
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            // --- We should handle the cookie logic here as well ---
+            User currentUser = Session["user"] as User;
+
+            // If no session, try the cookie
+            if (currentUser == null && Request.Cookies["user_cookie"] != null)
             {
-                var user = Session["user"] as User;
+                HttpCookie cookie = Request.Cookies["user_cookie"];
+                string email = cookie["Email"];
+                string password = cookie["Password"];
 
-                phGuest.Visible = (user == null);
-                phCustomer.Visible = (user != null && user.Role == "Customer");
-                phAdmin.Visible = (user != null && user.Role == "Admin");
-
-                if (user != null)
+                currentUser = UserHandler.Login(email, password);
+                if (currentUser != null)
                 {
-                    lblWelcome.Text = $"Welcome, {user.Username}";
+                    Session["user"] = currentUser; // Restore session
                 }
+                else
+                {
+                    // Cookie is invalid, remove it
+                    cookie.Expires = DateTime.Now.AddDays(-1);
+                    Response.Cookies.Add(cookie);
+                }
+            }
+
+            // --- Set visibility based on currentUser ---
+            phGuest.Visible = (currentUser == null);
+            phCustomer.Visible = (currentUser != null && currentUser.Role == "Customer");
+            phAdmin.Visible = (currentUser != null && currentUser.Role == "Admin");
+            phLoggedIn.Visible = (currentUser != null); // Show profile/logout if logged in
+
+            if (currentUser != null)
+            {
+                lblWelcome.Visible = true;
+                lblWelcome.Text = $"Welcome, {currentUser.Username}";
+            }
+            else
+            {
+                lblWelcome.Visible = false;
             }
         }
 
-        protected void btnLogout_Click(object sender, EventArgs e)
+        // *** RENAMED this method to match the .aspx file ***
+        protected void lbLogout_Click(object sender, EventArgs e)
         {
             Session.Clear();
-            if (Request.Cookies["userLogin"] != null)
+            Session.Abandon();
+
+            // Use the correct cookie name: "user_cookie"
+            if (Request.Cookies["user_cookie"] != null)
             {
-                Response.Cookies["userLogin"].Expires = DateTime.Now.AddDays(-1);
+                HttpCookie cookie = Response.Cookies["user_cookie"];
+                cookie.Expires = DateTime.Now.AddDays(-1);
+                Response.Cookies.Add(cookie);
             }
-            Response.Redirect("LoginPage.aspx");
+            Response.Redirect("~/Views/LoginPage.aspx"); // Redirect to Login
         }
     }
 }

@@ -91,14 +91,18 @@
     </Content>
     <Content Include="Views\AddJewel.aspx" />
     <Content Include="Views\Cart.aspx" />
+    <Content Include="Views\HandleOrders.aspx" />
     <Content Include="Views\HomePage.aspx" />
     <Content Include="Views\JewelDetail.aspx" />
     <Content Include="Views\LoginPage.aspx" />
     <Content Include="Views\RegisterPage.aspx" />
+    <Content Include="Views\UpdateJewel.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Factories\UserFactory.cs" />
+    <Compile Include="Handlers\JewelHandler.cs" />
+    <Compile Include="Handlers\TransactionHandler.cs" />
     <Compile Include="Handlers\UserHandler.cs" />
     <Compile Include="Models\Brand.cs">
       <DependentUpon>JawelsModel.tt</DependentUpon>
@@ -137,6 +141,9 @@
       <DependentUpon>JawelsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\CartRepository.cs" />
+    <Compile Include="Repositories\JewelRepository.cs" />
+    <Compile Include="Repositories\TransactionRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Views\AddJewel.aspx.cs">
       <DependentUpon>AddJewel.aspx</DependentUpon>
@@ -151,6 +158,13 @@
     </Compile>
     <Compile Include="Views\Cart.aspx.designer.cs">
       <DependentUpon>Cart.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HandleOrders.aspx.cs">
+      <DependentUpon>HandleOrders.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\HandleOrders.aspx.designer.cs">
+      <DependentUpon>HandleOrders.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\HomePage.aspx.cs">
       <DependentUpon>HomePage.aspx</DependentUpon>
@@ -186,6 +200,13 @@
     </Compile>
     <Compile Include="Views\RegisterPage.aspx.designer.cs">
       <DependentUpon>RegisterPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UpdateJewel.aspx.cs">
+      <DependentUpon>UpdateJewel.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\UpdateJewel.aspx.designer.cs">
+      <DependentUpon>UpdateJewel.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

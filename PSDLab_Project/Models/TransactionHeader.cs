@@ -11,22 +11,21 @@ namespace PSDLab_Project.Models
 {
     using System;
     using System.Collections.Generic;
-    
+
     public partial class TransactionHeader
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public TransactionHeader()
+        public TransactionHeader() // Constructor
         {
             this.TransactionDetails = new HashSet<TransactionDetail>();
         }
-    
+
         public int TransactionID { get; set; }
         public Nullable<int> UserID { get; set; }
         public Nullable<System.DateTime> TransactionDate { get; set; }
         public string PaymentMethod { get; set; }
-        public string Status { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public string Status { get; set; } // It is 'Status'
+
+        // It IS 'TransactionDetails'
         public virtual ICollection<TransactionDetail> TransactionDetails { get; set; }
         public virtual User User { get; set; }
     }
