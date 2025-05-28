@@ -5,7 +5,7 @@
 
         <asp:Label ID="lblError" runat="server" ForeColor="Red" />
 
-        <asp:GridView ID="gvCart" runat="server" AutoGenerateColumns="False" OnRowCommand="gvCart_RowCommand">
+        <asp:GridView ID="gvCart" runat="server" AutoGenerateColumns="False" OnRowCommand="gvCart_RowCommand" DataKeyNames="CartID">
             <Columns>
                 <asp:BoundField DataField="JewelName" HeaderText="Jewel" />
                 <asp:BoundField DataField="Price" HeaderText="Price" DataFormatString="{0:C}" />

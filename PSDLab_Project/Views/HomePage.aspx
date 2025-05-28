@@ -12,7 +12,7 @@
                     <%-- You might want to add an Image here later --%>
                     <h4><asp:Label ID="lblJewelName" runat="server" Text='<%# Eval("JewelName") %>'></asp:Label></h4>
                     <p>ID: <asp:Label ID="lblJewelID" runat="server" Text='<%# Eval("JewelID") %>'></asp:Label></p>
-                    <p>Price: <asp:Label ID="lblJewelPrice" runat="server" Text='<%# Eval("JewelPrice", "{0:C}") %>'></asp:Label></p> <%-- {0:C} formats as currency --%>
+                     <p>Price: <asp:Label ID="lblJewelPrice" runat="server" Text='<%# Eval("Price", "{0:C}") %>'></asp:Label></p>
                     <asp:HyperLink ID="hlViewDetails" runat="server" 
                                    NavigateUrl='<%# Eval("JewelID", "JewelDetail.aspx?id={0}") %>' 
                                    Text="View Details" 
